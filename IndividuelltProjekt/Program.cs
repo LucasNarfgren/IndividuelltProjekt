@@ -8,6 +8,7 @@ namespace IndividuelltProjekt
 
         static void Main(string[] args)
         {
+
             StartMeny();
             
             StartMeny();
@@ -19,7 +20,20 @@ namespace IndividuelltProjekt
         public static void StartMeny()
         {
             List<User> Users = new List<User>();
-            
+            Users.Add(new User("Lucas", "Privat-Konto", "Spar-Konto", 1234, 25000.50));
+            Users.Add(new User("Johnny", "Privat-Konto", "Spar-Konto", 1234, 25000.50));
+            Users.Add(new User("Conny", "Privat-Konto", "Spar-Konto", 1234, 25000.50));
+            Users.Add(new User("Ronny", "Privat-Konto", "Spar-Konto", 1234, 25000.50));
+            Users.Add(new User("Lenny", "Privat-Konto", "Spar-Konto", 1234, 25000.50));
+
+            for (int i = 0; i < Users.Count; i++)
+            {
+                Console.WriteLine(Users[i]);
+            }
+            Console.ReadKey();
+
+
+
 
             int menu = 0;
 
@@ -148,14 +162,17 @@ namespace IndividuelltProjekt
         }
         public static List<User> CreateAccount(List<User> CurrentUsers) // Funktion för att skapa konto.
         {
+            
             //string UserName = "";
             //int PinCode = 0;
             //int CheckPin = 0;
 
             User NewUser = new User(NewUser.UserName, NewUser.AccountName, NewUser.AccountName2, NewUser.PinCode, NewUser.Balance);
+            
 
             do
             {
+                
                 Console.Clear();
                 Console.WriteLine("Skapa Konto");
                 try
@@ -212,7 +229,7 @@ namespace IndividuelltProjekt
 
                 Console.WriteLine();
                 Console.WriteLine("Välkommen till ALN Bank {0}!", NewUser.UserName);
-
+                
                 NewUser.AccountName = "Privat-Konto";
                 NewUser.AccountName = "Spar-Konto";
                 NewUser.Balance = 25000.50;
@@ -247,11 +264,11 @@ namespace IndividuelltProjekt
 
     class User  // En Klass eller Objekt för Användare.
     {
-        public string UserName = "Greger123";     
-        public string AccountName = "Privat-Konto";
-        public string AccountName2 = "Spar-Konto";
-        public int PinCode = 1234;
-        public double Balance = 25000.43;
+        private string username;
+        private string accountname;
+        private string accountname2;
+        private int pincode;
+        private double balance;
 
 
         public User(string _UserName, string _AccountName, string _AccountName2, int _PinCode, double _Balance)
@@ -261,6 +278,31 @@ namespace IndividuelltProjekt
             this.AccountName = _AccountName;
             this.AccountName2 = _AccountName2;
             this.Balance = _Balance;
+        }
+        public string UserName
+        {
+            get { return username; }
+            set { username = value; }
+        }
+        public string AccountName
+        {
+            get { return accountname; }
+            set { accountname = value; }
+        }
+        public string AccountName2
+        {
+            get { return accountname2; }
+            set { accountname2 = value; }
+        }
+        public int PinCode
+        {
+            get { return pincode; }
+            set { pincode = value; }
+        }
+        public double Balance
+        {
+            get { return balance; }
+            set { balance = value; }
         }
     } 
 

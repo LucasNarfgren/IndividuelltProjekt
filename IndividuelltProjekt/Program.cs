@@ -8,26 +8,22 @@ namespace IndividuelltProjekt
 
         static void Main(string[] args)
         {
-            
-            
-
             StartMeny();
             
-            
-            
-
+            StartMeny();
+            Console.WriteLine("Hej");
+            Console.ReadKey();
         }
+        
     
         public static void StartMeny()
         {
             List<User> Users = new List<User>();
             
-            Users.Add(new User("Lucas",1234,"PrivatKonto",25000));
-            
 
             int menu = 0;
-            
 
+            Console.Clear();
             Console.WriteLine("Välkommen till ALN Banken.");
             do
             {
@@ -61,7 +57,7 @@ namespace IndividuelltProjekt
         }
         public static void Login(List<User> Users) // funktion för att logga in.
         {
-            bool Loggedin = false;
+            
             do
             {
                 try
@@ -101,14 +97,22 @@ namespace IndividuelltProjekt
 
             do
             {
-                Console.Clear();
-                Console.WriteLine("Inloggad som: {0}");
-                Console.WriteLine();
-                Console.WriteLine("1. Mina Konton");
-                Console.WriteLine("2. Överför till Konto");
-                Console.WriteLine("3. Ta ut pengar");
-                Console.WriteLine("4. Logga ut");
-                menu = int.Parse(Console.ReadLine());
+                try
+                {
+                    Console.Clear();
+                    Console.WriteLine("Inloggad som: {0}");
+                    Console.WriteLine();
+                    Console.WriteLine("1. Mina Konton");
+                    Console.WriteLine("2. Överför till Konto");
+                    Console.WriteLine("3. Ta ut pengar");
+                    Console.WriteLine("4. Logga ut");
+                    menu = int.Parse(Console.ReadLine());
+                }
+                catch(FormatException)
+                {
+                    Console.WriteLine("Ogiltligt Val");
+                }
+
 
                 switch (menu)
                 {
@@ -145,11 +149,11 @@ namespace IndividuelltProjekt
         public static List<User> CreateAccount(List<User> CurrentUsers) // Funktion för att skapa konto.
         {
             //string UserName = "";
-            int PinCode = 0;
-            int CheckPin = 0;
-            User NewUser = new User();
+            //int PinCode = 0;
+            //int CheckPin = 0;
 
-            
+            User NewUser = new User(NewUser.UserName, NewUser.AccountName, NewUser.AccountName2, NewUser.PinCode, NewUser.Balance);
+
             do
             {
                 Console.Clear();
@@ -158,20 +162,21 @@ namespace IndividuelltProjekt
                 {
                     Console.Write("Användarnamn: ");
                     NewUser.UserName = Console.ReadLine();
+                    break;
                 }
                 catch (FormatException)
                 {
                     Console.WriteLine("Ogiltligt användarnamn.");
                     Console.ReadKey();
                 }
-            } while (PinCode != CheckPin);
+            } while (true);
 
             do
             {
 
                 try
                 {
-                    Console.Clear();
+                    
                     Console.Write("Pinkod: ");
                     NewUser.PinCode = int.Parse(Console.ReadLine());
                     break;
@@ -179,7 +184,7 @@ namespace IndividuelltProjekt
                 catch (FormatException)
                 {
                     Console.WriteLine("Ogiltlig pinkod");
-                    Console.ReadKey();
+                    
                 }
             } while (true);
 
@@ -187,10 +192,17 @@ namespace IndividuelltProjekt
             {
                 try
                 {
-                    Console.Clear();
-                    Console.Write("Skriv in pinkod igen:");
-                    CheckPin = int.Parse(Console.ReadLine());
                     
+                    Console.Write("Verifiera pinkod: ");
+                    int CheckPin = int.Parse(Console.ReadLine());
+                    if(CheckPin == NewUser.PinCode)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Pinkod är inte samma");
+                    }
                     
                 }
                 catch (FormatException)
@@ -200,15 +212,18 @@ namespace IndividuelltProjekt
 
                 Console.WriteLine();
                 Console.WriteLine("Välkommen till ALN Bank {0}!", NewUser.UserName);
-                break;
+
+                NewUser.AccountName = "Privat-Konto";
+                NewUser.AccountName = "Spar-Konto";
+                NewUser.Balance = 25000.50;
 
 
             } while (true);
             
-
-            CurrentUsers.Add(NewUser);
             Console.ReadKey();
+            CurrentUsers.Add(NewUser);
             return CurrentUsers;
+            
 
         }
         public static void PrintCurrentAccountInfo(List<User> Users) // Funktion för att skriva ut information om inloggat account.
@@ -232,12 +247,21 @@ namespace IndividuelltProjekt
 
     class User  // En Klass eller Objekt för Användare.
     {
-        public string UserName = "";
-        public int PinCode = 0;       
-        public string AccountName = "";
-        public double Balance = 0;
+        public string UserName = "Greger123";     
+        public string AccountName = "Privat-Konto";
+        public string AccountName2 = "Spar-Konto";
+        public int PinCode = 1234;
+        public double Balance = 25000.43;
 
 
+        public User(string _UserName, string _AccountName, string _AccountName2, int _PinCode, double _Balance)
+        {
+            this.UserName = _UserName;
+            this.PinCode = _PinCode;
+            this.AccountName = _AccountName;
+            this.AccountName2 = _AccountName2;
+            this.Balance = _Balance;
+        }
     } 
 
     //class UserAccount // Klass Objekt för konton.

@@ -8,17 +8,6 @@ namespace IndividuelltProjekt
 
         static void Main(string[] args)
         {
-
-            StartMeny();
-            
-            StartMeny();
-            Console.WriteLine("Hej");
-            Console.ReadKey();
-        }
-        
-    
-        public static void StartMeny()
-        {
             List<User> Users = new List<User>();
             Users.Add(new User("Lucas", "Privat-Konto", "Spar-Konto", 1234, 25000.50));
             Users.Add(new User("Johnny", "Privat-Konto", "Spar-Konto", 1234, 25000.50));
@@ -26,14 +15,17 @@ namespace IndividuelltProjekt
             Users.Add(new User("Ronny", "Privat-Konto", "Spar-Konto", 1234, 25000.50));
             Users.Add(new User("Lenny", "Privat-Konto", "Spar-Konto", 1234, 25000.50));
 
-            for (int i = 0; i < Users.Count; i++)
+            foreach (var User in Users)
             {
-                Console.WriteLine(Users[i]);
+                Console.WriteLine(User.UserName);
             }
+
+            //for (int i = 0; i < Users.Count; i++)
+            //{
+            //    Console.WriteLine(Users[i].UserName + " " + Users[i].AccountName); 
+                
+            //}
             Console.ReadKey();
-
-
-
 
             int menu = 0;
 
@@ -41,6 +33,7 @@ namespace IndividuelltProjekt
             Console.WriteLine("Välkommen till ALN Banken.");
             do
             {
+
                 try
                 {
                     Console.WriteLine("1. Logga in");
@@ -53,13 +46,12 @@ namespace IndividuelltProjekt
                             Login(Users);
                             break;
                         case 2:
-                           Users = CreateAccount(Users);
+                            Users = CreateAccount(Users);
                             break;
                         default:
                             break;
                     }
 
-                    break;
                 }
                 catch (FormatException)
                 {
@@ -67,8 +59,8 @@ namespace IndividuelltProjekt
                 }
 
             } while (menu != 0);
-            
         }
+        
         public static void Login(List<User> Users) // funktion för att logga in.
         {
             
@@ -167,8 +159,7 @@ namespace IndividuelltProjekt
             //int PinCode = 0;
             //int CheckPin = 0;
 
-            User NewUser = new User(NewUser.UserName, NewUser.AccountName, NewUser.AccountName2, NewUser.PinCode, NewUser.Balance);
-            
+            User NewUser = new User();
 
             do
             {
@@ -230,14 +221,17 @@ namespace IndividuelltProjekt
                 Console.WriteLine();
                 Console.WriteLine("Välkommen till ALN Bank {0}!", NewUser.UserName);
                 
-                NewUser.AccountName = "Privat-Konto";
-                NewUser.AccountName = "Spar-Konto";
-                NewUser.Balance = 25000.50;
+
 
 
             } while (true);
             
             Console.ReadKey();
+
+            NewUser.AccountName = "Privat-Konto";
+            NewUser.AccountName = "Spar-Konto";
+            NewUser.Balance = 25000.50;
+
             CurrentUsers.Add(NewUser);
             return CurrentUsers;
             
@@ -265,13 +259,13 @@ namespace IndividuelltProjekt
     class User  // En Klass eller Objekt för Användare.
     {
         private string username;
-        private string accountname;
-        private string accountname2;
+        private string accountname = "Privat-Konto";
+        private string accountname2 = "Spar-Konto";
         private int pincode;
         private double balance;
 
 
-        public User(string _UserName, string _AccountName, string _AccountName2, int _PinCode, double _Balance)
+        public User(string _UserName="", string _AccountName="Privat-Konto", string _AccountName2="Spar-Konto", int _PinCode = 1234, double _Balance=25050.59)
         {
             this.UserName = _UserName;
             this.PinCode = _PinCode;
@@ -305,11 +299,4 @@ namespace IndividuelltProjekt
             set { balance = value; }
         }
     } 
-
-    //class UserAccount // Klass Objekt för konton.
-    //{
-    //    string AccountName = "";
-    //    int AccountNumber = 0;
-    //    double Balance = 0;
-    //} 
 }

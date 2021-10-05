@@ -15,17 +15,16 @@ namespace IndividuelltProjekt
             Users.Add(new User("Ronny", "Privat-Konto", "Spar-Konto", 1234, 25000.50));
             Users.Add(new User("Lenny", "Privat-Konto", "Spar-Konto", 1234, 25000.50));
 
-            foreach (var User in Users)
-            {
-                Console.WriteLine(User.UserName);
-            }
+            //foreach (var User in Users)
+            //{
+            //    Console.WriteLine(User.UserName);
+            //}
 
             //for (int i = 0; i < Users.Count; i++)
             //{
             //    Console.WriteLine(Users[i].UserName + " " + Users[i].AccountName); 
-                
+
             //}
-            Console.ReadKey();
 
             int menu = 0;
 
@@ -33,7 +32,6 @@ namespace IndividuelltProjekt
             Console.WriteLine("Välkommen till ALN Banken.");
             do
             {
-
                 try
                 {
                     Console.WriteLine("1. Logga in");
@@ -71,8 +69,10 @@ namespace IndividuelltProjekt
                     Console.Clear();
                     Console.WriteLine("Logga in på ett konto");
                     Console.Write("Användarnamn: ");
-                    string UserLogin = Console.ReadLine();
+                    string UserInput = Console.ReadLine();
+                    
                     break;
+                    
                 }
                 catch(FormatException)
                 {
@@ -93,7 +93,7 @@ namespace IndividuelltProjekt
                     Console.WriteLine("Ogiltigt Val");
                 }
             } while (true);
-               
+
             LoggedIn(Users);
 
         }
@@ -124,10 +124,12 @@ namespace IndividuelltProjekt
                 {
                     case 1:
                         //PrintCurrentAccountInfo(Users);
-                        foreach (var item in Users)
-                        {
-                            Console.WriteLine(item);
-                        }
+                        Console.WriteLine(Users[1].UserName);
+                        //foreach (var user in Users)
+                        //{
+                        //    Console.WriteLine(user.UserName);
+                        //}
+                        Console.ReadKey();
                         break;
                     case 2:
 
@@ -150,7 +152,7 @@ namespace IndividuelltProjekt
         } 
         public static void Logout() // Funktion för att logga ut.
         {
-
+            
         }
         public static List<User> CreateAccount(List<User> CurrentUsers) // Funktion för att skapa konto.
         {

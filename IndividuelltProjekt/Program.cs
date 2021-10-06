@@ -9,11 +9,11 @@ namespace IndividuelltProjekt
         static void Main(string[] args)
         {
             List<User> Users = new List<User>();
-            Users.Add(new User("Lucas", "Privat-Konto", "Spar-Konto", 1337, 56000.56));
-            Users.Add(new User("Johnny", "Privat-Konto", "Spar-Konto", 1234, 44500.50));
-            Users.Add(new User("Conny", "Privat-Konto", "Spar-Konto", 1234, 106708.50));
-            Users.Add(new User("Ronny", "Privat-Konto", "Spar-Konto", 1234, 1000506.50));
-            Users.Add(new User("Lenny", "Privat-Konto", "Spar-Konto", 1234, 150));
+            Users.Add(new User("Lucas", "Privat-Konto", "Spar-Konto", 1337, 56000.56,0));
+            Users.Add(new User("Johnny", "Privat-Konto", "Spar-Konto", 1234, 44500.50,0));
+            Users.Add(new User("Conny", "Privat-Konto", "Spar-Konto", 1234, 106708.50,0));
+            Users.Add(new User("Ronny", "Privat-Konto", "Spar-Konto", 1234, 1000506.50,0));
+            Users.Add(new User("Lenny", "Privat-Konto", "Spar-Konto", 1234, 150,0));
 
             //foreach (var User in Users)
             //{
@@ -132,7 +132,7 @@ namespace IndividuelltProjekt
                     Console.WriteLine("Inloggad som {0}!", CurrentUser);
                     Console.WriteLine();
                     Console.WriteLine("1. Mina Konton");
-                    Console.WriteLine("2. Överför till Konto");
+                    Console.WriteLine("2. Överför mellan Konton");
                     Console.WriteLine("3. Ta ut pengar");
                     Console.WriteLine("4. Logga ut");
                     menu = int.Parse(Console.ReadLine());
@@ -153,12 +153,14 @@ namespace IndividuelltProjekt
                             if (CurrentUser == user.UserName)
                             {
                                 Console.WriteLine(user.AccountName + " : " +  user.Balance);
-                                Console.WriteLine(user.AccountName2 + " : " + user.Balance);
+                                Console.WriteLine(user.AccountName2 + " : " + user.Balance2);
                             }
                         }
                         Console.ReadKey();
                         break;
                     case 2:
+
+                        TransferCurrency(Users,CurrentUser);
 
                         break;
                     case 3:
@@ -250,6 +252,7 @@ namespace IndividuelltProjekt
             NewUser.AccountName = "Privat-Konto";
             NewUser.AccountName2 = "Spar-Konto";
             NewUser.Balance = 25000.50;
+            NewUser.Balance2 = 0;
 
             CurrentUsers.Add(NewUser);
             return CurrentUsers;
@@ -260,13 +263,41 @@ namespace IndividuelltProjekt
         {
 
         }
-        public static void WithdrawCurrency() // Funktion för att ta ut pengar. 
+        public static void WithdrawCurrency(List<User> Users) // Funktion för att ta ut pengar. 
         {
 
         }
-        public static void TransferCurrency() // Funktion för att flytta pengar över konton.
+        public static void TransferCurrency(List<User> Users,string CurrentUser) // Funktion för att flytta pengar över konton.
         {
+            
+            Console.WriteLine("Från vilket konto vill du överföra pengar från: ");
+            string userinput = Console.ReadLine();
+            foreach (var user in Users)
+            {
+                if(CurrentUser == user.UserName)
+                {
+                    if (userinput == user.AccountName)
+                    {
+                        Console.WriteLine("Hur mycket pengar vill du överföra?:");
+                        double transfer = int.Parse(Console.ReadLine());
+                        user.Balance = user.Balance - transfer;
+                        user.Balance2 = user.Balance2 + transfer;
+                        break;
 
+                    }
+                    else if (userinput == user.AccountName2)
+                    {
+                        Console.WriteLine("Hur mycket pengar vill du överföra?:");
+                        double transfer = int.Parse(Console.ReadLine());
+                        user.Balance2 = user.Balance2 - transfer;
+                        user.Balance = user.Balance + transfer;
+                        break;
+                    }
+                }
+
+                
+
+            }
         }
         
     }
@@ -278,16 +309,20 @@ namespace IndividuelltProjekt
         private string accountname2 = "Spar-Konto";
         private int pincode;
         private double balance;
+        private double balance2;
 
-        public User(string _UserName="", string _AccountName="Privat-Konto", string _AccountName2="Spar-Konto", int _PinCode = 1234, double _Balance=25050.59)
+        public User(string _UserName = "", string _AccountName = "Privat-Konto", string _AccountName2 = "Spar-Konto", int _PinCode = 1234, double _Balance = 25050.59, double _Balance2 = 0)
         {
             this.UserName = _UserName;
             this.PinCode = _PinCode;
             this.AccountName = _AccountName;
             this.AccountName2 = _AccountName2;
             this.Balance = _Balance;
-            
+            this.balance2 = _Balance2;
+
+
         }
+
         public string UserName
         {
             get { return username; }
@@ -312,6 +347,11 @@ namespace IndividuelltProjekt
         {
             get { return balance; }
             set { balance = value; }
+        }
+        public double Balance2
+        {
+            get { return balance2; }
+            set { balance2 = value; }
         }
 
     } 

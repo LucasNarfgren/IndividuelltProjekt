@@ -164,7 +164,7 @@ namespace IndividuelltProjekt
 
                         break;
                     case 3:
-
+                        WithdrawCurrency(Users,CurrentUser);
                         break;
                     case 4:
                         Console.Clear();
@@ -263,9 +263,21 @@ namespace IndividuelltProjekt
         {
 
         }
-        public static void WithdrawCurrency(List<User> Users) // Funktion för att ta ut pengar. 
+        public static void WithdrawCurrency(List<User> Users, string CurrentUser) // Funktion för att ta ut pengar. 
         {
+            Console.WriteLine("Hur mycket pengar vill du ta ut?");
+            int userinput = int.Parse(Console.ReadLine());
+            foreach (var user in Users)
+            {
+                if(CurrentUser == user.UserName)
+                {
+                    user.Balance = user.Balance - userinput;
+                    break;
+                }
+            }
 
+            Console.WriteLine("Du har nu tagit ut {0} från ditt privatkonto.", userinput);
+            Console.ReadKey();
         }
         public static void TransferCurrency(List<User> Users,string CurrentUser) // Funktion för att flytta pengar över konton.
         {

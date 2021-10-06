@@ -9,11 +9,11 @@ namespace IndividuelltProjekt
         static void Main(string[] args)
         {
             List<User> Users = new List<User>();
-            Users.Add(new User("Lucas", "Privat-Konto", "Spar-Konto", 1234, 25000.50));
-            Users.Add(new User("Johnny", "Privat-Konto", "Spar-Konto", 1234, 25000.50));
-            Users.Add(new User("Conny", "Privat-Konto", "Spar-Konto", 1234, 25000.50));
-            Users.Add(new User("Ronny", "Privat-Konto", "Spar-Konto", 1234, 25000.50));
-            Users.Add(new User("Lenny", "Privat-Konto", "Spar-Konto", 1234, 25000.50));
+            Users.Add(new User("Lucas", "Privat-Konto", "Spar-Konto", 1337, 56000.56));
+            Users.Add(new User("Johnny", "Privat-Konto", "Spar-Konto", 1234, 44500.50));
+            Users.Add(new User("Conny", "Privat-Konto", "Spar-Konto", 1234, 106708.50));
+            Users.Add(new User("Ronny", "Privat-Konto", "Spar-Konto", 1234, 1000506.50));
+            Users.Add(new User("Lenny", "Privat-Konto", "Spar-Konto", 1234, 150));
 
             //foreach (var User in Users)
             //{
@@ -97,23 +97,31 @@ namespace IndividuelltProjekt
                 }
             } while (true);
 
-            if (userinput == Users[0].UserName && pincode == Users[0].PinCode)
+            bool loggedin = false;
+            foreach (var user in Users)
             {
-                LoggedIn(Users);
+
+
+                if (userinput == user.UserName && pincode == user.PinCode)
+                {
+                    loggedin = true;
+                    LoggedIn(Users,userinput);
+                }
+
             }
-            else
+            if(loggedin == false)
             {
-                Console.WriteLine("Fel Användarnamn eller Pinkod.");
-                Console.ReadKey();
+                Console.WriteLine("Fel Användarnamn eller pinkod.");
             }
+            Console.ReadKey();
+
+             
 
             
 
         }
-        public static void LoggedIn(List<User> Users) //login screen.
+        public static void LoggedIn(List<User> Users,string CurrentUser) //login screen.
         {
-
-
 
             int menu = 0;
             do
@@ -121,7 +129,7 @@ namespace IndividuelltProjekt
                 try
                 {
                     Console.Clear();
-                    Console.WriteLine("Inloggad som {0}!", Users[0].UserName);
+                    Console.WriteLine("Inloggad som {0}!", CurrentUser);
                     Console.WriteLine();
                     Console.WriteLine("1. Mina Konton");
                     Console.WriteLine("2. Överför till Konto");
@@ -138,23 +146,16 @@ namespace IndividuelltProjekt
                 switch (menu)
                 {
                     case 1:
-                        //PrintCurrentAccountInfo(Users);
-                        Console.Clear();
-
-                        //Tillfälligt för att se att det funkar att printa ut något ur listan.
-
-                        Console.WriteLine(Users[0].UserName);    
-                        Console.WriteLine(Users[0].AccountName + " " + Users[0].Balance);
-                        Console.WriteLine(Users[0].AccountName2 + " " + Users[0].Balance);
-                            
                         
-                        //foreach (var user in Users)
-                        //{
-                        //    Console.WriteLine(Users[0].UserName);
-                        //    Console.WriteLine(Users[0].AccountName);
-                        //    Console.WriteLine(Users[0].AccountName2);
-                        //    Console.WriteLine(Users[0].Balance);
-                        //}
+                        Console.Clear();
+                        foreach (var user in Users)
+                        {
+                            if (CurrentUser == user.UserName)
+                            {
+                                Console.WriteLine(user.AccountName + " : " +  user.Balance);
+                                Console.WriteLine(user.AccountName2 + " : " + user.Balance);
+                            }
+                        }
                         Console.ReadKey();
                         break;
                     case 2:
@@ -179,16 +180,8 @@ namespace IndividuelltProjekt
 
             Console.ReadKey();
         } 
-        public static void Logout() // Funktion för att logga ut.
-        {
-            
-        }
         public static List<User> CreateAccount(List<User> CurrentUsers) // Funktion för att skapa konto.
         {
-            
-            //string UserName = "";
-            //int PinCode = 0;
-            //int CheckPin = 0;
 
             User NewUser = new User();
 
@@ -248,19 +241,14 @@ namespace IndividuelltProjekt
                 {
                     Console.WriteLine("Ogiltlig Pinkod.");                    
                 }
-
-                Console.WriteLine();
-                Console.WriteLine("Välkommen till ALN Bank {0}!", NewUser.UserName);
-                
-
-
-
             } while (true);
-            
+
+            Console.Clear();
+            Console.WriteLine("Välkommen till ALN Banken {0}!", NewUser.UserName);
             Console.ReadKey();
 
             NewUser.AccountName = "Privat-Konto";
-            NewUser.AccountName = "Spar-Konto";
+            NewUser.AccountName2 = "Spar-Konto";
             NewUser.Balance = 25000.50;
 
             CurrentUsers.Add(NewUser);
@@ -268,7 +256,7 @@ namespace IndividuelltProjekt
             
 
         }
-        public static void PrintCurrentAccountInfo(List<User> Users) // Funktion för att skriva ut information om inloggat account.
+        public static void PrintCurrentAccountInfo() // Funktion för att skriva ut information om inloggat account.
         {
 
         }

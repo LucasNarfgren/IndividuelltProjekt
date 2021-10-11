@@ -8,23 +8,16 @@ namespace IndividuelltProjekt
 
         static void Main(string[] args)
         {
+            //double[,] UserAccounts = new double[10, 2];
+            //UserAccounts[0, 0] = 25000;
+            //UserAccounts[0, 1] = 50000;
+
             List<User> Users = new List<User>();
-            Users.Add(new User("Lucas", "Privat-Konto", "Spar-Konto", 1337, 56000.56,0));
-            Users.Add(new User("Johnny", "Privat-Konto", "Spar-Konto", 1234, 44500.50,0));
-            Users.Add(new User("Conny", "Privat-Konto", "Spar-Konto", 1234, 106708.50,0));
-            Users.Add(new User("Ronny", "Privat-Konto", "Spar-Konto", 1234, 1000506.50,0));
-            Users.Add(new User("Lenny", "Privat-Konto", "Spar-Konto", 1234, 150,0));
-
-            //foreach (var User in Users)
-            //{
-            //    Console.WriteLine(User.UserName);
-            //}
-
-            //for (int i = 0; i < Users.Count; i++)
-            //{
-            //    Console.WriteLine(Users[i].UserName + " " + Users[i].AccountName); 
-
-            //}
+            Users.Add(new User("Lucas", "Privat-Konto", "Spar-Konto", 1337, 56000, 0));
+            Users.Add(new User("Johnny", "Privat-Konto", "Spar-Konto", 1234, 44500, 0));
+            Users.Add(new User("Conny", "Privat-Konto", "Spar-Konto", 1234, 106708, 0));
+            Users.Add(new User("Ronny", "Privat-Konto", "Spar-Konto", 1234, 1000506, 0));
+            Users.Add(new User("Lenny", "Privat-Konto", "Spar-Konto", 1234, 150, 0));
 
             int menu = 0;
             do
@@ -33,9 +26,10 @@ namespace IndividuelltProjekt
                 Console.WriteLine("Välkommen till ALN Banken.");
                 try
                 {
-                    
+
                     Console.WriteLine("1. Logga in");
                     Console.WriteLine("2. Skapa konto");
+                    Console.WriteLine("3. Avsluta program");
                     menu = int.Parse(Console.ReadLine());
 
                     switch (menu)
@@ -45,6 +39,9 @@ namespace IndividuelltProjekt
                             break;
                         case 2:
                             Users = CreateAccount(Users);
+                            break;
+                        case 3:
+                            Environment.Exit(0);
                             break;
                         default:
                             break;
@@ -59,12 +56,12 @@ namespace IndividuelltProjekt
 
             } while (true);
         }
-        
+
         public static void Login(List<User> Users) // funktion för att logga in.
         {
             string userinput;
             int pincode;
-            
+
             do
             {
                 try
@@ -73,13 +70,14 @@ namespace IndividuelltProjekt
                     Console.WriteLine("Logga in på ett konto");
                     Console.Write("Användarnamn: ");
                     userinput = userinput = Console.ReadLine();
-                    
+
                     break;
-                    
+
                 }
-                catch(FormatException)
+                catch (FormatException)
                 {
                     Console.WriteLine("Ogiltigt Val");
+
                 }
 
             } while (true);
@@ -94,6 +92,7 @@ namespace IndividuelltProjekt
                 catch (FormatException)
                 {
                     Console.WriteLine("Ogiltigt Val");
+
                 }
             } while (true);
 
@@ -105,22 +104,21 @@ namespace IndividuelltProjekt
                 if (userinput == user.UserName && pincode == user.PinCode)
                 {
                     loggedin = true;
-                    LoggedIn(Users,userinput);
+                    LoggedIn(Users, userinput);
                 }
-
             }
-            if(loggedin == false)
+            if (loggedin == false)
             {
                 Console.WriteLine("Fel Användarnamn eller pinkod.");
             }
             Console.ReadKey();
 
-             
 
-            
+
+
 
         }
-        public static void LoggedIn(List<User> Users,string CurrentUser) //login screen.
+        public static void LoggedIn(List<User> Users, string CurrentUser) //login screen.
         {
 
             int menu = 0;
@@ -137,7 +135,7 @@ namespace IndividuelltProjekt
                     Console.WriteLine("4. Logga ut");
                     menu = int.Parse(Console.ReadLine());
                 }
-                catch(FormatException)
+                catch (FormatException)
                 {
                     Console.WriteLine("Ogiltligt Val");
                 }
@@ -146,13 +144,13 @@ namespace IndividuelltProjekt
                 switch (menu)
                 {
                     case 1:
-                        
+
                         Console.Clear();
                         foreach (var user in Users)
                         {
                             if (CurrentUser == user.UserName)
                             {
-                                Console.WriteLine(user.AccountName + " : " +  user.Balance);
+                                Console.WriteLine(user.AccountName + " : " + user.Balance);
                                 Console.WriteLine(user.AccountName2 + " : " + user.Balance2);
                             }
                         }
@@ -160,11 +158,11 @@ namespace IndividuelltProjekt
                         break;
                     case 2:
 
-                        TransferCurrency(Users,CurrentUser);
+                        TransferCurrency(Users, CurrentUser);
 
                         break;
                     case 3:
-                        WithdrawCurrency(Users,CurrentUser);
+                        WithdrawCurrency(Users, CurrentUser);
                         break;
                     case 4:
                         Console.Clear();
@@ -181,7 +179,7 @@ namespace IndividuelltProjekt
 
 
             Console.ReadKey();
-        } 
+        }
         public static List<User> CreateAccount(List<User> CurrentUsers) // Funktion för att skapa konto.
         {
 
@@ -189,20 +187,20 @@ namespace IndividuelltProjekt
 
             do
             {
-                
+
                 Console.Clear();
                 Console.WriteLine("Skapa Konto");
                 try
                 {
                     Console.Write("Användarnamn: ");
                     NewUser.UserName = Console.ReadLine();
-                    break;
                 }
                 catch (FormatException)
                 {
                     Console.WriteLine("Ogiltligt användarnamn.");
                     Console.ReadKey();
                 }
+                break;
             } while (true);
 
             do
@@ -210,7 +208,7 @@ namespace IndividuelltProjekt
 
                 try
                 {
-                    
+
                     Console.Write("Pinkod: ");
                     NewUser.PinCode = int.Parse(Console.ReadLine());
                     break;
@@ -218,7 +216,7 @@ namespace IndividuelltProjekt
                 catch (FormatException)
                 {
                     Console.WriteLine("Ogiltlig pinkod");
-                    
+
                 }
             } while (true);
 
@@ -226,10 +224,10 @@ namespace IndividuelltProjekt
             {
                 try
                 {
-                    
+
                     Console.Write("Verifiera pinkod: ");
                     int CheckPin = int.Parse(Console.ReadLine());
-                    if(CheckPin == NewUser.PinCode)
+                    if (CheckPin == NewUser.PinCode)
                     {
                         break;
                     }
@@ -237,11 +235,11 @@ namespace IndividuelltProjekt
                     {
                         Console.WriteLine("Pinkod är inte samma");
                     }
-                    
+
                 }
                 catch (FormatException)
                 {
-                    Console.WriteLine("Ogiltlig Pinkod.");                    
+                    Console.WriteLine("Ogiltlig Pinkod.");
                 }
             } while (true);
 
@@ -256,44 +254,65 @@ namespace IndividuelltProjekt
 
             CurrentUsers.Add(NewUser);
             return CurrentUsers;
-            
 
-        }
-        public static void PrintCurrentAccountInfo() // Funktion för att skriva ut information om inloggat account.
-        {
 
         }
         public static void WithdrawCurrency(List<User> Users, string CurrentUser) // Funktion för att ta ut pengar. 
         {
             Console.WriteLine("Hur mycket pengar vill du ta ut?");
-            int userinput = int.Parse(Console.ReadLine());
+            double userinput = double.Parse(Console.ReadLine());
             foreach (var user in Users)
             {
-                if(CurrentUser == user.UserName)
+                if (CurrentUser == user.UserName)
                 {
                     user.Balance = user.Balance - userinput;
                     break;
                 }
             }
 
-            Console.WriteLine("Du har nu tagit ut {0} från ditt privatkonto.", userinput);
+            Console.WriteLine("Du har nu tagit ut {0} kr från ditt privatkonto, poff!", userinput);
             Console.ReadKey();
         }
-        public static void TransferCurrency(List<User> Users,string CurrentUser) // Funktion för att flytta pengar över konton.
+        public static void TransferCurrency(List<User> Users, string CurrentUser) // Funktion för att flytta pengar över konton.
         {
-            
+            Console.Clear();
             Console.WriteLine("Från vilket konto vill du överföra pengar från: ");
-            string userinput = Console.ReadLine();
+            Console.WriteLine("1. Privat-Konto");
+            Console.WriteLine("2. Spar-Konto");
+            int menu;
+            menu = int.Parse(Console.ReadLine());
+            string userinput = "";
+            switch (menu)
+            {
+                case 1:
+                    userinput = "Privat-Konto";
+                    break;
+                case 2:
+                    userinput = "Spar-Konto";
+                    break;
+
+            }
+
+
             foreach (var user in Users)
             {
-                if(CurrentUser == user.UserName)
+                if (CurrentUser == user.UserName)
                 {
                     if (userinput == user.AccountName)
                     {
                         Console.WriteLine("Hur mycket pengar vill du överföra?:");
                         double transfer = int.Parse(Console.ReadLine());
-                        user.Balance = user.Balance - transfer;
-                        user.Balance2 = user.Balance2 + transfer;
+                        if (transfer > user.Balance)
+                        {
+                            Console.WriteLine("Du har inte tillräckligt med pengar.");
+                            Console.ReadKey();
+                        }
+                        else
+                        {
+                            user.Balance = user.Balance - transfer;
+                            user.Balance2 = user.Balance2 + transfer;
+                        }
+
                         break;
 
                     }
@@ -301,17 +320,32 @@ namespace IndividuelltProjekt
                     {
                         Console.WriteLine("Hur mycket pengar vill du överföra?:");
                         double transfer = int.Parse(Console.ReadLine());
-                        user.Balance2 = user.Balance2 - transfer;
-                        user.Balance = user.Balance + transfer;
+                        if (transfer > user.Balance2)
+                        {
+                            Console.WriteLine("Du har inte tillräckligt med pengar.");
+                            Console.ReadKey();
+                        }
+                        else
+                        {
+                            user.Balance2 = user.Balance2 - transfer;
+                            user.Balance = user.Balance + transfer;
+                        }
+
                         break;
                     }
+                    
                 }
 
-                
+
 
             }
         }
-        
+
+    }
+    class UserAccount
+    {
+        private string accountname;
+        private int balance;
     }
 
     class User  // En Klass eller Objekt för Användare.
@@ -322,6 +356,9 @@ namespace IndividuelltProjekt
         private int pincode;
         private double balance;
         private double balance2;
+
+
+
 
         public User(string _UserName = "", string _AccountName = "Privat-Konto", string _AccountName2 = "Spar-Konto", int _PinCode = 1234, double _Balance = 25050.59, double _Balance2 = 0)
         {
@@ -366,5 +403,7 @@ namespace IndividuelltProjekt
             set { balance2 = value; }
         }
 
-    } 
+    }
 }
+     
+

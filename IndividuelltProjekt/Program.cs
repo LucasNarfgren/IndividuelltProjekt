@@ -59,58 +59,78 @@ namespace IndividuelltProjekt
 
         public static void Login(List<User> Users) // funktion för att logga in.
         {
-            string userinput;
-            int pincode;
+            string userinput="";
+            int pincode=0;
+            int tries = 1;
 
             do
             {
-                try
+                do
                 {
-                    Console.Clear();
-                    Console.WriteLine("Logga in på ett konto");
-                    Console.Write("Användarnamn: ");
-                    userinput = userinput = Console.ReadLine();
 
-                    break;
+                    try
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Logga in på ett konto, försök {0}",tries);
+                        Console.Write("Användarnamn: ");
+                        userinput = userinput = Console.ReadLine();
+                        break;
+
+
+                    }
+                    catch (FormatException)
+                    {
+                        Console.WriteLine("Ogiltigt Val");
+
+                    }
+
+
+                } while (true);
+
+                do
+                {
+                    try
+                    {
+                        Console.Write("Pinkod: ");
+                        pincode = pincode = int.Parse(Console.ReadLine());
+                        break;
+                    }
+                    catch (FormatException)
+                    {
+                        Console.WriteLine("Ogiltigt Val");
+
+                    }
+
+                } while (true);
+
+                tries++;
+
+                bool loggedin = false;
+                foreach (var user in Users)
+                {
+
+
+                    if (userinput == user.UserName && pincode == user.PinCode)
+                    {
+                        loggedin = true;
+                        LoggedIn(Users, userinput);
+                    }
+                }
+                if (loggedin == false)
+                {
+                    Console.WriteLine("Du har skrivit in fel användarnamn eller pinkod för många gånger.");
+                    if (tries == 4)
+                    {
+                        Console.WriteLine("");
+                        Console.WriteLine("Programmet avslutas . . .");
+                        Console.ReadKey();
+                        Environment.Exit(0);
+                    }
 
                 }
-                catch (FormatException)
-                {
-                    Console.WriteLine("Ogiltigt Val");
 
-                }
+            } while (tries < 4);
 
-            } while (true);
-            do
-            {
-                try
-                {
-                    Console.Write("Pinkod: ");
-                    pincode = pincode = int.Parse(Console.ReadLine());
-                    break;
-                }
-                catch (FormatException)
-                {
-                    Console.WriteLine("Ogiltigt Val");
-
-                }
-            } while (true);
-
-            bool loggedin = false;
-            foreach (var user in Users)
-            {
-
-
-                if (userinput == user.UserName && pincode == user.PinCode)
-                {
-                    loggedin = true;
-                    LoggedIn(Users, userinput);
-                }
-            }
-            if (loggedin == false)
-            {
-                Console.WriteLine("Fel Användarnamn eller pinkod.");
-            }
             Console.ReadKey();
 
 

@@ -265,13 +265,23 @@ namespace IndividuelltProjekt
             {
                 if (CurrentUser == user.UserName)
                 {
-                    user.Balance = user.Balance - userinput;
+                    if (userinput > user.Balance)
+                    {
+                        Console.WriteLine("Du har inte så mycket pengar.");
+                        Console.ReadKey();
+                    }
+                    else
+                    {
+                        user.Balance = user.Balance - userinput;
+                        Console.WriteLine("Du har nu tagit ut {0} kr från ditt privatkonto, poff!", userinput);
+                        Console.ReadKey();
+                    }
+
                     break;
                 }
             }
 
-            Console.WriteLine("Du har nu tagit ut {0} kr från ditt privatkonto, poff!", userinput);
-            Console.ReadKey();
+
         }
         public static void TransferCurrency(List<User> Users, string CurrentUser) // Funktion för att flytta pengar över konton.
         {

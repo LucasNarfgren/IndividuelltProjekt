@@ -314,7 +314,8 @@ namespace IndividuelltProjekt
                         else
                         {
                             user.Balance = user.Balance - transfer;
-                            Console.WriteLine("Du har nu tagit ut {0} kr från ditt privat-konto.",transfer);
+                            Console.WriteLine("Du har nu tagit ut {0} kr från ditt Privat-Konto.",transfer);
+                            Console.WriteLine("Du har nu {0}kr på ditt Privat-Konto.",user.Balance);
                             Console.WriteLine("Tryck på ENTER för gå vidare . . . ");
                             Console.ReadKey();
                         }
@@ -332,7 +333,8 @@ namespace IndividuelltProjekt
                         else
                         {
                             user.Balance2 = user.Balance2 - transfer;
-                            Console.WriteLine("Du har nu tagit ut {0} kr från ditt spar-konto.", transfer);
+                            Console.WriteLine("Du har nu tagit ut {0} kr från ditt Spar-Konto.", transfer);
+                            Console.WriteLine("Du har nu {0}kr på ditt Spar-Konto.", user.Balance2);
                             Console.WriteLine("Tryck på ENTER för gå vidare . . . ");
                             Console.ReadKey();
                         }

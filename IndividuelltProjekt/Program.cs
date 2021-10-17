@@ -7,10 +7,6 @@ namespace IndividuelltProjekt
     {
         static void Main(string[] args)
         {
-            //double[,] UserAccounts = new double[10, 2];
-            //UserAccounts[0, 0] = 25000;
-            //UserAccounts[0, 1] = 50000;
-
             string[] WelcomeMSG = new string[5];
             WelcomeMSG[0] = "Välkommen till ALN Banken.";
             WelcomeMSG[1] = "Hej och välkommen till ALN Banken!";

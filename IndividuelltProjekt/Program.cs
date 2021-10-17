@@ -11,6 +11,15 @@ namespace IndividuelltProjekt
             //UserAccounts[0, 0] = 25000;
             //UserAccounts[0, 1] = 50000;
 
+            string[] WelcomeMSG = new string[5];
+            WelcomeMSG[0] = "Välkommen till ALN Banken.";
+            WelcomeMSG[1] = "Hej och välkommen till ALN Banken!";
+            WelcomeMSG[2] = "ALN Banken, Där vi ger ut gratis pengar!";
+            WelcomeMSG[3] = "ALN Banken";
+            WelcomeMSG[4] = "Välkommen!";
+            Random r = new Random();
+            int random = r.Next(0,4);
+            
             List<User> Users = new List<User>();
             Users.Add(new User("lucas", "Privat-Konto", "Spar-Konto", 1337, 56000, 0));
             Users.Add(new User("johnny", "Privat-Konto", "Spar-Konto", 1234, 44500, 0));
@@ -22,7 +31,7 @@ namespace IndividuelltProjekt
             do
             {
                 Console.Clear();
-                Console.WriteLine("Välkommen till ALN Banken.");
+                Console.WriteLine(WelcomeMSG[random]);
                 try
                 {
 

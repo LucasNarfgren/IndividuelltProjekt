@@ -5,7 +5,6 @@ namespace IndividuelltProjekt
 {
     class Program
     {
-
         static void Main(string[] args)
         {
             //double[,] UserAccounts = new double[10, 2];
@@ -56,7 +55,6 @@ namespace IndividuelltProjekt
 
             } while (true);
         }
-
         public static void Login(List<User> Users) // funktion för att logga in.
         {
             string userinput="";
@@ -322,10 +320,7 @@ namespace IndividuelltProjekt
                 case 2:
                     userinput = "Spar-Konto";
                     break;
-
             }
-
-
             foreach (var user in Users)
             {
                 if (CurrentUser == user.UserName)
@@ -346,9 +341,7 @@ namespace IndividuelltProjekt
                             Console.WriteLine("Tryck på ENTER för gå vidare . . . ");
                             Console.ReadKey();
                         }
-
                         break;
-
                     }
                     else if (userinput == user.AccountName2)
                     {
@@ -366,24 +359,12 @@ namespace IndividuelltProjekt
                             Console.WriteLine("Tryck på ENTER för gå vidare . . . ");
                             Console.ReadKey();
                         }
-
                         break;
                     }
-
                 }
-
-
-
             }
         }
-
     }
-    class UserAccount
-    {
-        private string accountname;
-        private int balance;
-    }
-
     class User  // En Klass eller Objekt för Användare.
     {
         private string username;
@@ -392,9 +373,8 @@ namespace IndividuelltProjekt
         private int pincode;
         private double balance;
         private double balance2;
-
-
-
+        private double[] balanceA= new double[9];
+        private string[] accountnameA = new string[9];
 
         public User(string _UserName = "", string _AccountName = "Privat-Konto", string _AccountName2 = "Spar-Konto", int _PinCode = 1234, double _Balance = 25050.59, double _Balance2 = 0)
         {
@@ -407,7 +387,6 @@ namespace IndividuelltProjekt
 
 
         }
-
         public string UserName
         {
             get { return username; }
@@ -438,7 +417,11 @@ namespace IndividuelltProjekt
             get { return balance2; }
             set { balance2 = value; }
         }
-
+    }
+    class UserAccount
+    {
+        private string accountname;
+        private double balance;
     }
 }
      

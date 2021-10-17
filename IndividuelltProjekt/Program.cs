@@ -12,11 +12,11 @@ namespace IndividuelltProjekt
             //UserAccounts[0, 1] = 50000;
 
             List<User> Users = new List<User>();
-            Users.Add(new User("Lucas", "Privat-Konto", "Spar-Konto", 1337, 56000, 0));
-            Users.Add(new User("Johnny", "Privat-Konto", "Spar-Konto", 1234, 44500, 0));
-            Users.Add(new User("Conny", "Privat-Konto", "Spar-Konto", 1234, 106708, 0));
-            Users.Add(new User("Ronny", "Privat-Konto", "Spar-Konto", 1234, 1000506, 0));
-            Users.Add(new User("Lenny", "Privat-Konto", "Spar-Konto", 1234, 150, 0));
+            Users.Add(new User("lucas", "Privat-Konto", "Spar-Konto", 1337, 56000, 0));
+            Users.Add(new User("johnny", "Privat-Konto", "Spar-Konto", 1234, 44500, 0));
+            Users.Add(new User("conny", "Privat-Konto", "Spar-Konto", 1234, 106708, 0));
+            Users.Add(new User("ronny", "Privat-Konto", "Spar-Konto", 1234, 1000506, 0));
+            Users.Add(new User("lenny", "Privat-Konto", "Spar-Konto", 1234, 150, 0));
 
             int menu = 0;
             do
@@ -278,30 +278,63 @@ namespace IndividuelltProjekt
         public static void WithdrawCurrency(List<User> Users, string CurrentUser) // Funktion för att ta ut pengar. 
         {
             Console.Clear();
-            Console.WriteLine("Hur mycket pengar vill du ta ut?");
-            double userinput = double.Parse(Console.ReadLine());
+            Console.WriteLine("Från vilket konto vill du ta ut pengar från: ");
+            Console.WriteLine("1. Privat-Konto");
+            Console.WriteLine("2. Spar-Konto");
+            int menu;
+            menu = int.Parse(Console.ReadLine());
+            string userinput = "";
+            switch (menu)
+            {
+                case 1:
+                    userinput = "Privat-Konto";
+                    break;
+                case 2:
+                    userinput = "Spar-Konto";
+                    break;
+            }
             foreach (var user in Users)
             {
                 if (CurrentUser == user.UserName)
                 {
-                    if (userinput > user.Balance)
+                    if (userinput == user.AccountName)
                     {
-                        Console.WriteLine("Du har inte så mycket pengar.");
-                        Console.ReadKey();
+                        Console.WriteLine("Hur mycket pengar vill du ta ut?:");
+                        double transfer = int.Parse(Console.ReadLine());
+                        if (transfer > user.Balance)
+                        {
+                            Console.WriteLine("Du har inte tillräckligt med pengar.");
+                            Console.ReadKey();
+                        }
+                        else
+                        {
+                            user.Balance = user.Balance - transfer;
+                            Console.WriteLine("Du har nu tagit ut {0} kr från ditt privat-konto.",transfer);
+                            Console.WriteLine("Tryck på ENTER för gå vidare . . . ");
+                            Console.ReadKey();
+                        }
+                        break;
                     }
-                    else
+                    else if (userinput == user.AccountName2)
                     {
-                        user.Balance = user.Balance - userinput;
-                        Console.WriteLine("Du har nu tagit ut {0} kr från ditt privatkonto, poff!", userinput);
-                        Console.WriteLine("Tryck på ENTER för gå vidare . . . ");
-                        Console.ReadKey();
+                        Console.WriteLine("Hur mycket pengar vill du ta ut?:");
+                        double transfer = int.Parse(Console.ReadLine());
+                        if (transfer > user.Balance2)
+                        {
+                            Console.WriteLine("Du har inte tillräckligt med pengar.");
+                            Console.ReadKey();
+                        }
+                        else
+                        {
+                            user.Balance2 = user.Balance2 - transfer;
+                            Console.WriteLine("Du har nu tagit ut {0} kr från ditt spar-konto.", transfer);
+                            Console.WriteLine("Tryck på ENTER för gå vidare . . . ");
+                            Console.ReadKey();
+                        }
+                        break;
                     }
-
-                    break;
                 }
             }
-
-
         }
         public static void TransferCurrency(List<User> Users, string CurrentUser) // Funktion för att flytta pengar över konton.
         {
@@ -338,6 +371,7 @@ namespace IndividuelltProjekt
                         {
                             user.Balance = user.Balance - transfer;
                             user.Balance2 = user.Balance2 + transfer;
+                            Console.WriteLine("Du har överfört {0} kr till ditt spar-konto.", transfer);
                             Console.WriteLine("Tryck på ENTER för gå vidare . . . ");
                             Console.ReadKey();
                         }
@@ -356,6 +390,7 @@ namespace IndividuelltProjekt
                         {
                             user.Balance2 = user.Balance2 - transfer;
                             user.Balance = user.Balance + transfer;
+                            Console.WriteLine("Du har överfört {0} kr till ditt privat-konto.", transfer);
                             Console.WriteLine("Tryck på ENTER för gå vidare . . . ");
                             Console.ReadKey();
                         }
@@ -373,8 +408,8 @@ namespace IndividuelltProjekt
         private int pincode;
         private double balance;
         private double balance2;
-        private double[] balanceA= new double[9];
-        private string[] accountnameA = new string[9];
+        //private double[] balanceA= new double[9];
+        //private string[] accountnameA = new string[9];
 
         public User(string _UserName = "", string _AccountName = "Privat-Konto", string _AccountName2 = "Spar-Konto", int _PinCode = 1234, double _Balance = 25050.59, double _Balance2 = 0)
         {
